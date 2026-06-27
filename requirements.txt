@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 flask
 pymongo
 gunicorn
 flask-login
+=======
+flask
+pymongo
+gunicorn
+>>>>>>> 54ab0fa72fb786001a55ca123c612201e6593459
