@@ -1,0 +1,238 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="formulario-page">
+
+    <!-- HEADER -->
+
+    <div class="header-formulario">
+
+        <div class="titulo-formulario">
+
+            <div class="icono-formulario editar-icono">
+                ✏️
+            </div>
+
+            <div>
+                <h2>Editar Actividad</h2>
+                <p>Modifica la información de la actividad registrada</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FORMULARIO -->
+
+    <form method="POST"
+          enctype="multipart/form-data"
+          class="card-blanca formulario-premium">
+
+        <!-- DETALLES -->
+
+        <div class="form-seccion">
+
+            <div class="form-titulo-seccion">
+                📋 Detalles de la Actividad
+            </div>
+
+            <div class="form-grid grid-doble">
+
+                <div class="form-grupo">
+                    <label for="numero">No. Actividad</label>
+                    <input type="number"
+                           id="numero"
+                           name="numero"
+                           class="form-input"
+                           value="{{ actividad.numero }}"
+                           required>
+                </div>
+
+                <div class="form-grupo">
+                    <label for="nombre">Nombre de la actividad</label>
+                    <input type="text"
+                           id="nombre"
+                           name="nombre"
+                           class="form-input"
+                           value="{{ actividad.nombre }}"
+                           required>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- INFORMACION GENERAL -->
+
+        <div class="form-seccion">
+
+            <div class="form-titulo-seccion">
+                🌱 Información General
+            </div>
+
+            <div class="form-grid">
+
+                <!-- FECHA -->
+                <div class="form-grupo">
+                    <label for="fecha">Fecha</label>
+                    <input type="date"
+                           id="fecha"
+                           name="fecha"
+                           class="form-input"
+                           value="{{ actividad.fecha }}"
+                           required>
+                </div>
+
+                <!-- RESPONSABLE -->
+                <div class="form-grupo">
+                    <label for="responsable">Responsable</label>
+                    <input type="text"
+                           id="responsable"
+                           name="responsable"
+                           class="form-input"
+                           value="{{ actividad.responsable }}"
+                           required>
+                </div>
+
+                <!-- EVIDENCIA -->
+                <div class="form-grupo">
+                    <label for="evidencia">Evidencia (opcional)</label>
+
+                    <input type="file"
+                           id="evidencia"
+                           name="evidencia"
+                           class="form-input input-file"
+                           accept="image/*,video/*,.pdf">
+
+                        {% if actividad.evidencia %}
+    <div class="archivo-actual">
+        <span>📂 Archivo actual:</span>
+
+        {% set ext = actividad.evidencia.split('.')[-1] %}
+
+        {% if ext in ['mp4', 'webm', 'ogg'] %}
+            <video width="300" controls>
+                <source src="{{ url_for('static', filename='evidencias/' ~ actividad.evidencia) }}">
+            </video>
+        {% else %}
+            <img src="{{ url_for('static', filename='evidencias/' ~ actividad.evidencia) }}"
+                 width="200">
+        {% endif %}
+    </div>
+{% endif %}
+                </div>
+
+                <!-- ESTADO -->
+                <div class="form-grupo">
+                    <label for="estado">Estado</label>
+
+                    <select id="estado"
+                            name="estado"
+                            class="form-input select-premium">
+
+                        <option value="pendiente"
+                            {% if actividad.estado == 'pendiente' %}selected{% endif %}>
+                            ⏳ Pendiente
+                        </option>
+
+                        <option value="en_proceso"
+                            {% if actividad.estado == 'en_proceso' %}selected{% endif %}>
+                            🔄 En proceso
+                        </option>
+
+                        <option value="completada"
+                            {% if actividad.estado == 'completada' %}selected{% endif %}>
+                            ✅ Completada
+                        </option>
+
+                    </select>
+                </div>
+
+                <!-- SEDE -->
+                <div class="form-grupo">
+                    <label for="sede">Sede</label>
+
+                    <select id="sede"
+        name="sede"
+        class="form-input select-premium">
+
+    <!-- PLACEHOLDER -->
+        <option value="" disabled {% if not actividad.sede %}selected{% endif %}>
+    Seleccione una sede
+</option>
+        Seleccione una sede
+    </option>
+
+    <option value="CECyTEM San José del Rincón"
+        {% if actividad.sede == 'CECyTEM San José del Rincón' %}selected{% endif %}>
+        CECyTEM San José del Rincón
+    </option>
+
+    <option value="Otra"
+        {% if actividad.sede == 'Otra' %}selected{% endif %}>
+        Otra...
+    </option>
+
+</select>
+                </div>
+
+                <!-- OTRA SEDE -->
+                <div class="form-grupo">
+                    <label for="otra_sede">Otra sede (si aplica)</label>
+
+                    <input type="text"
+                           id="otra_sede"
+                           name="otra_sede"
+                           class="form-input"
+                           placeholder="Escribe la sede si elegiste 'Otra'"
+                           value="{{ actividad.otra_sede if actividad.otra_sede else '' }}">
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- DESCRIPCION -->
+
+        <div class="form-seccion">
+
+            <div class="form-titulo-seccion">
+                📝 Descripción
+            </div>
+
+            <div class="form-grupo">
+
+                <label for="descripcion">Descripción detallada</label>
+
+                <textarea id="descripcion"
+                          name="descripcion"
+                          class="form-input textarea-premium"
+                          rows="5"
+                          required>{{ actividad.descripcion }}</textarea>
+
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+
+        <div class="form-footer premium-footer">
+
+            <a href="/actividades"
+               class="btn-regresar">
+                📋 Volver a la lista
+            </a>
+
+            <button type="submit"
+                    class="btn-premium btn-verde-premium">
+                Actualizar cambios 💾
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

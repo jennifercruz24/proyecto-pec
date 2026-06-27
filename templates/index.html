@@ -1,0 +1,264 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<!-- BANNER PRINCIPAL -->
+
+<section class="card-blanca banner-principal">
+
+    <div class="banner-info">
+
+        <span class="subtitulo-banner">
+            Bienvenido a
+        </span>
+
+        <h2 class="titulo-banner">
+            SISTPEC
+        </h2>
+
+        <h3 class="texto-banner">
+            Sistema de Gestión de Actividades
+        </h3>
+
+        <p class="descripcion-banner">
+
+            Bienvenido al sistema de gestión de actividades del
+            proyecto ecológico SISTPEC.
+
+            Aquí podrás registrar, consultar, editar y eliminar
+            actividades relacionadas con la separación de residuos.
+
+        </p>
+
+    </div>
+
+    <div class="banner-imagen">
+
+        <img src="{{ url_for('static', filename='img/planeta.png') }}"
+             alt="Planeta reciclaje">
+
+    </div>
+
+</section>
+
+<!-- TARJETAS INFORMATIVAS -->
+
+<section class="grid-3">
+
+    <div class="card-blanca card-informativa">
+
+        <div class="icono-wrapper bg-azul">
+            ♻️
+        </div>
+
+        <div>
+
+            <h4>Reciclaje</h4>
+
+            <p>
+                Transformamos residuos en nuevos recursos
+                para cuidar nuestro planeta.
+            </p>
+
+            <div class="linea-card azul"></div>
+
+        </div>
+
+    </div>
+
+    <div class="card-blanca card-informativa">
+
+        <div class="icono-wrapper bg-amarillo">
+            🌱
+        </div>
+
+        <div>
+
+            <h4>Cuidado ambiental</h4>
+
+            <p>
+                Promovemos acciones que protegen
+                y conservan el entorno natural.
+            </p>
+
+            <div class="linea-card amarillo"></div>
+
+        </div>
+
+    </div>
+
+    <div class="card-blanca card-informativa">
+
+        <div class="icono-wrapper bg-verde">
+            🗑️
+        </div>
+
+        <div>
+
+            <h4>Separación de residuos</h4>
+
+            <p>
+                Reduce la contaminación y genera
+                un impacto positivo.
+            </p>
+
+            <div class="linea-card verde"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- BOTONES -->
+
+<section class="grid-3">
+
+    {% if current_user.rol|lower == "admin" %}
+
+    <a href="/agregar_actividad"
+       class="btn-accion btn-azul">
+
+        ➕ Agregar actividad
+
+    </a>
+
+    {% endif %}
+
+    <a href="/actividades"6
+       class="btn-accion btn-amarillo">
+
+        📋 Ver actividades
+
+    </a>
+
+    <a href="/buscar_actividad"
+       class="btn-accion btn-verde">
+
+        🔍 Buscar actividad
+
+    </a>
+
+    {% if current_user.rol|lower == "admin" %}
+
+    <a href="/reportes"
+       class="btn-accion btn-morado">
+
+        📊 Reportes
+
+    </a>
+
+    {% endif %}
+
+</section>
+
+<!-- RESUMEN -->
+
+<div class="layout-inferior">
+
+    <!-- ESTADISTICAS -->
+
+    <div class="card-blanca">
+
+        <h3 class="titulo-seccion">
+            Resumen de actividades
+        </h3>
+
+        <div class="seccion-stats">
+
+            <div class="stat-box azul-suave">
+
+                <span class="num azul">
+                    {{ total }}
+                </span>
+
+                <span class="txt">
+                    Total
+                </span>
+
+            </div>
+
+            <div class="stat-box verde-suave">
+
+                <span class="num verde">
+                    {{ completadas }}
+                </span>
+
+                <span class="txt">
+                    Completadas
+                </span>
+
+            </div>
+
+            <div class="stat-box amarillo-suave">
+
+                <span class="num amarillo">
+                    {{ pendientes }}
+                </span>
+
+                <span class="txt">
+                    Pendientes
+                </span>
+
+            </div>
+
+            <div class="stat-box morado-suave">
+
+                <span class="num morado">
+                    {{ programadas }}
+                </span>
+
+                <span class="txt">
+                    Programadas
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- PROYECTO 3R -->
+
+    <div class="card-blanca proyecto-3r">
+
+        <div>
+
+            <h4 class="titulo-3r">
+                🌿 Proyecto Ecológico 3R
+            </h4>
+
+            <div class="mini-grid-3r">
+
+                <div class="badge-3r azul">
+                    ⬇️ Reducir
+                </div>
+
+                <div class="badge-3r amarillo">
+                    🔄 Reutilizar
+                </div>
+
+                <div class="badge-3r verde">
+                    ♻️ Reciclar
+                </div>
+
+            </div>
+
+        </div>
+
+        <p class="frase-final">
+
+    "Promovemos la separación responsable de residuos para construir una comunidad más limpia, consciente y comprometida con el cuidado del medio ambiente." 🌎♻️
+
+</p>
+    </div>
+
+</div>
+
+<footer class="footer-app">
+
+    © 2026 SISTPEC - Proyecto Ecológico 3R
+
+</footer>
+
+{% endblock %}

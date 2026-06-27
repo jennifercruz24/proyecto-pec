@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        SISTPEC | Proyecto Ecológico 3R
+    </title>
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/estilos.css') }}">
+
+    <!-- FUENTES -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <!-- ICONOS -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <div>
+
+                <!-- LOGO -->
+
+                <div class="logo-container">
+
+                    <div class="logo-icon">
+
+                        <i class="fa-solid fa-recycle"></i>
+
+                    </div>
+
+                    <div class="logo-texto">
+
+                        <h1>
+                            SISTPEC
+                        </h1>
+
+                        <span>
+                            Proyecto Ecológico 3R
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <!-- MENU -->
+
+                <nav class="menu-nav">
+
+                    <a href="/"
+                       class="menu-link activo">
+
+                        <i class="fa-solid fa-house"></i>
+
+                        Inicio
+
+                    </a>
+
+                    {% if current_user.is_authenticated and current_user.rol|lower == "admin" %}
+
+                    <a href="/agregar_actividad"
+                       class="menu-link">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Agregar actividad
+
+                    </a>
+
+                    <a href="/reportes"
+                       class="menu-link">
+
+                        <i class="fa-solid fa-chart-column"></i>
+
+                        Reportes
+
+                    </a>
+
+                    {% endif %}
+
+                    <a href="/actividades"
+                       class="menu-link">
+
+                        <i class="fa-solid fa-list-check"></i>
+
+                        Actividades
+
+                    </a>
+
+                    <a href="/buscar_actividad"
+                       class="menu-link">
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                        Buscar actividad
+
+                    </a>
+
+                </nav>
+
+            </div>
+
+            <!-- FOOTER SIDEBAR -->
+
+            <div class="sidebar-banner">
+
+                <div style="
+                font-size:42px;
+                margin-bottom:10px;
+                ">
+                    🌱
+                </div>
+
+                <p>
+                    Separar hoy,<br>
+                    ver un mejor mañana
+                </p>
+
+                <div class="linea-decorativa"></div>
+
+            </div>
+
+        </aside>
+
+        <!-- CONTENIDO -->
+
+        <main class="contenido-principal">
+
+            <!-- HEADER -->
+
+            <header class="header-top"
+            style="
+            background:white;
+            padding:20px 25px;
+            border-radius:24px;
+            border:1px solid #e2e8f0;
+            box-shadow:0 10px 25px rgba(15,23,42,.04);
+            ">
+
+                <div style="
+                display:flex;
+                flex-direction:column;
+                gap:4px;
+                ">
+
+                    <h2 style="
+                    font-size:20px;
+                    font-weight:900;
+                    color:#0f172a;
+                    margin:0;
+                    ">
+
+                        Dashboard Ecológico 🌎
+
+                    </h2>
+
+                    <span style="
+                    font-size:12px;
+                    color:#94a3b8;
+                    font-weight:600;
+                    ">
+
+                        Sistema de Gestión de Actividades Ambientales
+
+                    </span>
+
+                </div>
+
+                <!-- PERFIL -->
+
+                <div class="user-profile">
+
+                    <div class="avatar">
+
+                        {{ current_user.nombre[0] }}
+
+                    </div>
+
+                    <div>
+
+                        <div style="
+                        font-size:13px;
+                        font-weight:800;
+                        color:#0f172a;
+                        ">
+
+                            {{ current_user.nombre }}
+
+                        </div>
+
+                        <div style="
+                        font-size:11px;
+                        color:#94a3b8;
+                        font-weight:600;
+                        ">
+
+                            {{ current_user.rol }}
+
+                        </div>
+
+                    </div>
+
+                    {% if current_user.is_authenticated %}
+
+                    <a href="{{ url_for('logout') }}"
+                       class="btn-salir">
+
+                        <i class="fa-solid fa-right-from-bracket"></i>
+
+                        Cerrar Sesión
+
+                    </a>
+
+                    {% endif %}
+
+                </div>
+
+            </header>
+
+            <!-- CONTENIDO DINAMICO -->
+
+            {% block content %}
+            {% endblock %}
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>

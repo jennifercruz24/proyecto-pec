@@ -1,0 +1,320 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="formulario-page">
+
+    <!-- HEADER -->
+
+    <div class="header-formulario">
+
+        <div class="titulo-formulario">
+
+            <div class="icono-formulario">
+                ➕
+            </div>
+
+            <div>
+
+                <h2>
+                    Agregar Actividad
+                </h2>
+
+                <p>
+                    Registra nuevas actividades ecológicas dentro del sistema
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FORMULARIO -->
+
+    <form method="POST"
+      enctype="multipart/form-data"
+      class="card-blanca formulario-premium">
+        <!-- DETALLES -->
+
+        <div class="form-seccion">
+
+            <div class="form-titulo-seccion">
+
+                📋 Detalles de la Actividad
+
+            </div>
+
+            <div class="form-grid grid-doble">
+
+                <div class="form-grupo">
+
+                    <label for="numero">
+
+                        No. Actividad
+
+                    </label>
+
+                    <input type="number"
+                           id="numero"
+                           name="numero"
+                           class="form-input"
+                           placeholder="Ej. 101"
+                           required>
+
+                </div>
+
+                <div class="form-grupo">
+
+                    <label for="nombre">
+
+                        Nombre de la actividad
+
+                    </label>
+
+                    <input type="text"
+                           id="nombre"
+                           name="nombre"
+                           class="form-input"
+                           placeholder="Campaña de reciclaje"
+                           required>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- INFORMACION -->
+
+        <div class="form-seccion">
+
+            <div class="form-titulo-seccion">
+
+                🌱 Información General
+
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-grupo">
+
+                    <label for="fecha">
+
+                        Fecha
+
+                    </label>
+
+                    <input type="date"
+                           id="fecha"
+                           name="fecha"
+                           class="form-input"
+                           required>
+
+                </div>
+
+                <div class="form-grupo">
+
+                    <label for="responsable">
+
+                        Responsable
+
+                    </label>
+
+                    <input type="text"
+                           id="responsable"
+                           name="responsable"
+                           class="form-input"
+                           placeholder="Eco-equipo"
+                           required>
+
+                </div>
+                
+                <div class="form-grupo">
+
+    <label for="sede">
+
+        Sede
+
+    </label>
+
+    <select id="sede"
+        name="sede"
+        class="form-input select-premium"
+        onchange="mostrarOtraSede()"
+        required>
+
+    <option value="">
+        Seleccione una sede
+    </option>
+
+    {% for sede in sedes %}
+        <option value="{{ sede.nombre }}">
+            {{ sede.nombre }}
+        </option>
+    {% endfor %}
+
+    <option value="Otra">
+        Otra...
+    </option>
+
+</select>
+
+</div>
+
+<div class="form-grupo"
+     id="grupoOtraSede"
+     style="display:none;">
+
+    <label for="otra_sede">
+
+        Especifique la sede
+
+    </label>
+
+    <input type="text"
+           id="otra_sede"
+           name="otra_sede"
+           class="form-input"
+           placeholder="Escriba el nombre de la sede">
+
+</div>
+
+                <div class="form-grupo">
+
+    <label for="evidencias">
+
+        Evidencias
+
+    </label>
+
+    <input
+        type="file"
+        id="evidencias"
+        name="evidencias[]"
+        class="form-input"
+        multiple
+        accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.xls,.xlsx,.mp4,.avi,.mov,.mkv">
+
+    <small class="text-muted">
+
+        Puede seleccionar varias imágenes, documentos o videos.
+
+    </small>
+
+</div>
+
+                <div class="form-grupo">
+
+                    <label for="estado">
+
+                        Estado
+
+                    </label>
+
+                    <select id="estado"
+                            name="estado"
+                            class="form-input select-premium">
+
+                        <option value="pendiente">
+                            ⏳ Pendiente
+                        </option>
+
+                        <option value="en_proceso">
+                            🔄 En proceso
+                        </option>
+
+                        <option value="completada">
+                            ✅ Completada
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- DESCRIPCION -->
+
+        <div class="form-seccion">
+
+            <div class="form-titulo-seccion">
+
+                📝 Descripción
+
+            </div>
+
+            <div class="form-grupo">
+
+                <label for="descripcion">
+
+                    Descripción detallada
+
+                </label>
+
+                <textarea id="descripcion"
+                          name="descripcion"
+                          class="form-input textarea-premium"
+                          rows="5"
+                          placeholder="Describe la actividad..."
+                          required></textarea>
+
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+
+        <div class="form-footer premium-footer">
+
+            <a href="/"
+               class="btn-regresar">
+
+                🏠 Volver al inicio
+
+            </a>
+
+            <button type="submit"
+                    class="btn-guardar btn-premium">
+
+                Guardar actividad ➕
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+<script>
+
+function mostrarOtraSede(){
+
+    const sede = document.getElementById("sede").value;
+
+    const grupo = document.getElementById("grupoOtraSede");
+
+    const otra = document.getElementById("otra_sede");
+
+    if(sede === "Otra"){
+
+        grupo.style.display = "block";
+
+        otra.required = true;
+
+    }else{
+
+        grupo.style.display = "none";
+
+        otra.required = false;
+
+        otra.value = "";
+
+    }
+
+}
+
+</script>
+{% endblock %}

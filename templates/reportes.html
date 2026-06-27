@@ -1,0 +1,105 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<div class="form-contenedor">
+  <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px;">
+    <span style="font-size:28px; color:var(--azul-pec);">📊</span>
+    <h2 style="font-size:24px; font-weight:900; color:#1e293b; margin:0;">
+      Reportes de Actividades
+    </h2>
+  </div>
+
+  <!-- Resumen -->
+  <div class="row mb-4">
+
+    <div class="col-md-3">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title text-primary">Total</h5>
+          <p class="display-6">{{ total }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title text-success">Completadas</h5>
+          <p class="display-6">{{ completadas }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title text-warning">Pendientes</h5>
+          <p class="display-6">{{ pendientes }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title text-info">En proceso</h5>
+          <p class="display-6">{{ en_proceso }}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Tabla -->
+  <div class="card shadow-sm">
+    <div class="card-body">
+
+      <h5 class="mb-3">Detalle de actividades</h5>
+
+      <table class="table table-hover">
+
+        <thead class="table-dark">
+          <tr>
+            <th>No.</th>
+            <th>Nombre</th>
+            <th>Responsable</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for a in actividades %}
+          <tr>
+            <td>{{ a.numero }}</td>
+            <td>{{ a.nombre }}</td>
+            <td>{{ a.responsable }}</td>
+            <td>{{ a.fecha }}</td>
+            <td>
+
+              {% if a.estado == "pendiente" %}
+                <span class="badge bg-warning text-dark">Pendiente</span>
+
+              {% elif a.estado == "en_proceso" %}
+                <span class="badge bg-info text-dark">En proceso</span>
+
+              {% elif a.estado == "completada" %}
+                <span class="badge bg-success">Completada</span>
+
+              {% else %}
+                <span class="badge bg-secondary">Desconocido</span>
+              {% endif %}
+
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+      </table>
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - SISTPEC</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css">
+</head>
+
+<body class="container mt-5">
+
+    <!-- LOGIN DE ALUMNOS Y CIUDADANOS -->
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-success text-white">
+
+                    <h3 class="mb-0">
+                        Iniciar sesión
+                    </h3>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form method="POST" action="/login">
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Tipo de usuario
+                            </label>
+
+                            <select name="tipo_usuario"
+                                class="form-select"
+                                required>
+
+                                <option value="">
+                                 Seleccione una opción
+                              </option>
+
+                              <option value="encargado">
+                              Encargado
+                             </option>
+
+                              <option value="alumno">
+                               Alumno
+                             </option>
+
+                              <option value="ciudadano">
+                              Ciudadano
+                             </option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Usuario
+                            </label>
+
+                            <input type="text"
+                                   name="nombre"
+                                   class="form-control"
+                                   required>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Contraseña
+                            </label>
+
+                            <input type="password"
+                                   name="password"
+                                   class="form-control"
+                                   required>
+
+                        </div>
+
+                        <button type="submit"
+                                class="btn btn-success">
+
+                            Ingresar
+
+                        </button>
+
+                        <a href="/registro"
+                           class="btn btn-link">
+
+                            Registrarse
+
+                        </a>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- LOGIN DE ADMINISTRADOR -->
+    <div class="row justify-content-center mt-4">
+
+        <div class="col-md-6">
+
+            <div class="card shadow">
+
+                <div class="card-header" style="background:#0f766e; color:white;"></div>
+                <h3 class="mb-0">
+                        Administrador
+                    </h3>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form method="POST" action="/login_admin">
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Contraseña de administrador
+                            </label>
+
+                            <input type="password"
+                                   name="password"
+                                   class="form-control"
+                                   required>
+
+                        </div>
+
+                        <button type="submit"
+        style="background:#16a34a; color:white;"
+        class="btn">
+                            Entrar como administrador
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

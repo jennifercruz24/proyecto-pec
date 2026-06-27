@@ -1,0 +1,306 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="busqueda-page">
+
+    <!-- HEADER -->
+
+    <div class="header-formulario">
+
+        <div class="titulo-formulario">
+
+            <div class="icono-formulario buscar-icono">
+                🔍
+            </div>
+
+            <div>
+
+                <h2>
+                    Buscar Actividad
+                </h2>
+
+                <p>
+                    Encuentra actividades registradas dentro del sistema
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- BUSCADOR -->
+
+    <div class="card-blanca buscador-premium">
+
+        <div class="form-titulo-seccion">
+
+            🔎 Filtros de búsqueda
+
+        </div>
+
+        <form method="POST"
+              action="/buscar_actividad"
+              class="formulario-premium">
+
+            <div class="form-grid grid-doble">
+
+                <!-- CAMPO -->
+
+                <div class="form-grupo">
+
+                    <label for="campo">
+
+                        Buscar por
+
+                    </label>
+
+                    <select id="campo"
+                            name="campo"
+                            class="form-input select-premium">
+
+                        <option value="nombre">
+                            📝 Nombre de actividad
+                        </option>
+
+                        <option value="responsable">
+                            👤 Responsable
+                        </option>
+
+                        <option value="estado">
+                            ⏳ Estado
+                        </option>
+
+                        <option value="numero">
+                            🔢 Número de actividad
+                        </option>
+
+                        <option value="fecha">
+                            📅 Fecha
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <!-- INPUT -->
+
+                <div class="form-grupo">
+
+                    <label for="valor">
+
+                        Escribe el dato a buscar
+
+                    </label>
+
+                    <div class="busqueda-input-group">
+
+                        <input type="text"
+                               id="valor"
+                               name="valor"
+                               class="form-input"
+                               placeholder="Buscar actividad..."
+                               required>
+
+                        <button type="submit"
+                                class="btn-premium">
+
+                            🔍 Buscar
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+        <!-- FOOTER -->
+
+        <div class="form-footer premium-footer">
+
+            <a href="/"
+               class="btn-regresar">
+
+                🏠 Volver al inicio
+
+            </a>
+
+            <a href="/actividades"
+               class="btn-regresar link-azul">
+
+                📋 Ver todas las actividades
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- RESULTADOS -->
+
+    {% if resultados %}
+
+    <div class="card-blanca resultados-premium">
+
+        <div class="resultados-header">
+
+            <h3>
+
+                📑 Resultados encontrados
+
+            </h3>
+
+            <span class="badge-total">
+
+                {{ resultados|length }} resultado(s)
+
+            </span>
+
+        </div>
+
+        <div class="tabla-premium-wrapper">
+
+            <table class="tabla-premium">
+
+                <thead>
+
+                    <tr>
+
+                        <th>No.</th>
+                        <th>Actividad</th>
+                        <th>Responsable</th>
+                        <th>Fecha</th>
+                        <th>Evidencias</th>
+                        <th>Estado</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for a in resultados %}
+
+                    <tr>
+
+                        <td>
+                            {{ a.numero }}
+                        </td>
+
+                        <td>
+
+                            <div class="actividad-cell">
+
+                                <span class="actividad-dot"></span>
+
+                                {{ a.nombre }}
+
+                            </div>
+
+                        </td>
+
+                        <td>
+                            {{ a.responsable }}
+                        </td>
+
+                        <td>
+                            {{ a.fecha }}
+                        </td>
+
+                        <td>
+
+                            {% if a.evidencias and a.evidencias|length > 0 %}
+
+                                {% for ev in a.evidencias %}
+
+                                <a href="{{ url_for('static', filename='evidencias/' ~ ev) }}"
+                                   target="_blank"
+                                   class="archivo-link">
+
+                                    📂 {{ ev }}
+
+                                </a>
+
+                                {% endfor %}
+
+                            {% else %}
+
+                                <span class="sin-evidencia">
+
+                                    📂 Sin registro
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            {% if a.estado == 'completada' %}
+
+                            <span class="estado-badge estado-verde">
+
+                                ✅ Completada
+
+                            </span>
+
+                            {% elif a.estado == 'en_proceso' %}
+
+                            <span class="estado-badge estado-amarillo">
+
+                                🔄 En proceso
+
+                            </span>
+
+                            {% else %}
+
+                            <span class="estado-badge estado-gris">
+
+                                ⏳ Pendiente
+
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    {% elif mensaje %}
+
+    <div class="card-blanca mensaje-vacio">
+
+        <div class="mensaje-icono">
+            ⚠️
+        </div>
+
+        <h3>
+            Sin resultados
+        </h3>
+
+        <p>
+            {{ mensaje }}
+        </p>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
